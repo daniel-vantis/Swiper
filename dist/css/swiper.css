@@ -10,7 +10,7 @@
  * 
  * Licensed under MIT
  * 
- * Released on: March 10, 2017
+ * Released on: June 13, 2017
  */
 .swiper-container {
   margin-left: auto;
@@ -371,7 +371,8 @@ button.swiper-pagination-bullet {
 }
 /* Coverflow */
 .swiper-container-coverflow .swiper-wrapper,
-.swiper-container-flip .swiper-wrapper {
+.swiper-container-flip .swiper-wrapper,
+.swiper-container-vantis_testimonials .swiper-wrapper {
   /* Windows 8 IE 10 fix */
   -ms-perspective: 1200px;
 }

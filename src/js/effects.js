@@ -272,5 +272,51 @@ s.effects = {
         setTransition: function (duration) {
             s.slides.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
         }
+    },
+    vantis_testimonials: {
+      setTranslate: function () {
+        var transform = s.translate;
+        var right = transform - s.width;
+
+        for (var i = 0, length = s.slides.length; i < length; i++) {
+          var slide = s.slides.eq(i);
+          var slideSize = s.slidesSizesGrid[i];
+          var slideOffset = slide[0].swiperSlideOffset;
+
+          var offsetMultiplier = (right + slideSize + slideOffset) / slideSize;
+
+          var translateY = 0;
+          var translateX = -200 * offsetMultiplier;
+          var translateZ = -500 * Math.abs(offsetMultiplier);
+
+          if (translateX > 200) {
+            translateX = 200;
+          } else if (translateX < 0) {
+            translateX = 0;
+          }
+
+          if (translateZ < -500) {
+            translateZ = -500;
+          } else if (translateZ > 0) {
+            translateZ = 0;
+          }
+
+          if (Math.abs(translateX) < 0.001) { translateX = 0; }
+          if (Math.abs(translateZ) < 0.001) { translateZ = 0; }
+
+          var slideTransform = 'translate3d(' + translateX + 'px,' + translateY + 'px,' + translateZ + 'px)';
+
+          slide.transform(slideTransform);
+        }
+
+        //Set correct perspective for IE10
+        if (s.browser.ie) {
+          var ws = s.wrapper[0].style;
+          ws.perspectiveOrigin = '50% 50%';
+        }
+      },
+      setTransition: function (duration) {
+        s.slides.transition(duration);
+      }
     }
 };

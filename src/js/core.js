@@ -364,7 +364,7 @@ if (s.params.touchReleaseOnEdges) {
     s.params.resistanceRatio = 0;
 }
 // Coverflow / 3D
-if (['cube', 'coverflow', 'flip'].indexOf(s.params.effect) >= 0) {
+if (['cube', 'coverflow', 'flip', 'vantis_testimonials'].indexOf(s.params.effect) >= 0) {
     if (s.support.transforms3d) {
         s.params.watchSlidesProgress = true;
         s.classNames.push(s.params.containerModifierClass + '3d');
@@ -839,7 +839,7 @@ s.updateSlidesSize = function () {
     var newSlidesGrid;
 
     if (
-        s.rtl && s.wrongRTL && (s.params.effect === 'slide' || s.params.effect === 'coverflow')) {
+        s.rtl && s.wrongRTL && (s.params.effect === 'slide' || s.params.effect === 'coverflow' || s.params.effect === 'vantis_testimonials')) {
         s.wrapper.css({width: s.virtualSize + s.params.spaceBetween + 'px'});
     }
     if (!s.support.flexbox || s.params.setWrapperSize) {
