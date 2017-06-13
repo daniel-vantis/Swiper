@@ -285,9 +285,11 @@ s.effects = {
 
           var offsetMultiplier = (right + slideSize + slideOffset) / slideSize;
 
-          var translateY = 0;
+          var translateY = 10 * offsetMultiplier;
           var translateX = -200 * offsetMultiplier;
           var translateZ = -500 * Math.abs(offsetMultiplier);
+
+          var opacity = -offsetMultiplier;
 
           if (translateX > 200) {
             translateX = 200;
@@ -297,16 +299,20 @@ s.effects = {
 
           if (translateZ < -500) {
             translateZ = -500;
-          } else if (translateZ > 0) {
-            translateZ = 0;
+          }
+
+          if (i % 2 === 1) {
+            translateY *= -1;
           }
 
           if (Math.abs(translateX) < 0.001) { translateX = 0; }
+          if (Math.abs(translateY) < 0.001) { translateY = 0; }
           if (Math.abs(translateZ) < 0.001) { translateZ = 0; }
 
           var slideTransform = 'translate3d(' + translateX + 'px,' + translateY + 'px,' + translateZ + 'px)';
 
           slide.transform(slideTransform);
+          slide.find('.testimonial-toggle').css({ opacity: opacity });
         }
 
         //Set correct perspective for IE10
@@ -316,7 +322,7 @@ s.effects = {
         }
       },
       setTransition: function (duration) {
-        s.slides.transition(duration);
+        s.slides.transition(duration).find('.testimonial-toggle').transition(duration);
       }
     }
 };
