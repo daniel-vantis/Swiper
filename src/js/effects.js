@@ -278,6 +278,9 @@ s.effects = {
         var transform = s.translate;
         var right = transform - s.width;
 
+        s.container.find('.testimonials__description').removeClass('active');
+        s.container.find('#' + s.slides.eq(s.realIndex).data('description')).addClass('active');
+
         for (var i = 0, length = s.slides.length; i < length; i++) {
           var slide = s.slides.eq(i);
           var slideSize = s.slidesSizesGrid[i];
@@ -286,19 +289,21 @@ s.effects = {
           var offsetMultiplier = (right + slideSize + slideOffset) / slideSize;
 
           var translateY = 10 * offsetMultiplier;
-          var translateX = -200 * offsetMultiplier;
-          var translateZ = -500 * Math.abs(offsetMultiplier);
+          var translateX = -100 * offsetMultiplier;
+          var translateZ = 500 * offsetMultiplier;
 
           var opacity = -offsetMultiplier;
 
-          if (translateX > 200) {
-            translateX = 200;
+          if (translateX > 100) {
+            translateX = 100;
           } else if (translateX < 0) {
             translateX = 0;
           }
 
           if (translateZ < -500) {
             translateZ = -500;
+          } else if (translateZ > 0) {
+            translateZ = 0;
           }
 
           if (i % 2 === 1) {
@@ -312,7 +317,9 @@ s.effects = {
           var slideTransform = 'translate3d(' + translateX + 'px,' + translateY + 'px,' + translateZ + 'px)';
 
           slide.transform(slideTransform);
-          slide.find('.testimonial-toggle').css({ opacity: opacity });
+          slide.find('.testimonials__toggle').css({ opacity: opacity });
+
+          slide[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
         }
 
         //Set correct perspective for IE10
@@ -322,7 +329,7 @@ s.effects = {
         }
       },
       setTransition: function (duration) {
-        s.slides.transition(duration).find('.testimonial-toggle').transition(duration);
+        s.slides.transition(duration).find('.testimonials__toggle').transition(duration);
       }
     }
 };
