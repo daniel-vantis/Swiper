@@ -288,9 +288,15 @@ s.effects = {
 
           var offsetMultiplier = (right + slideSize + slideOffset) / slideSize;
 
-          var translateY = 10 * offsetMultiplier;
+          var translateY;
           var translateX = -100 * offsetMultiplier;
           var translateZ = 500 * offsetMultiplier;
+
+          if (s.params.vantis.simple) {
+            translateY = 0;
+          } else {
+            translateY = 10 * offsetMultiplier;
+          }
 
           var opacity = -offsetMultiplier;
 
