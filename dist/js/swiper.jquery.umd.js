@@ -10,7 +10,7 @@
  * 
  * Licensed under MIT
  * 
- * Released on: July 13, 2017
+ * Released on: July 14, 2017
  */
         (function (root, factory) {
         	'use strict';
@@ -2813,8 +2813,14 @@
                   var offsetMultiplier = (right + slideSize + slideOffset) / slideSize;
         
                   var translateY;
-                  var translateX = -100 * offsetMultiplier;
+                  var translateX;
                   var translateZ = 500 * offsetMultiplier;
+        
+                  if (offsetMultiplier > 0) {
+                    translateX = -150 * offsetMultiplier;
+                  } else {
+                    translateX = -100 * offsetMultiplier;
+                  }
         
                   if (s.params.vantis.simple) {
                     translateY = 0;
@@ -2826,19 +2832,26 @@
         
                   if (translateX > 100) {
                     translateX = 100;
-                  } else if (translateX < 0) {
+                  } else if (!s.params.vantis.simple && translateX < 0) {
                     translateX = 0;
+                  } else if (!s.params.vantis.simple && translateX < -120) {
+                    translateX = -120;
                   }
         
                   if (translateZ < -500) {
                     translateZ = -500;
-                  } else if (translateZ > 0) {
+                  } else if (!s.params.vantis.simple && translateZ > 0) {
                     translateZ = 0;
+                  } else if (s.params.vantis.simple && translateZ > 500 ) {
+                    translateZ = 500;
                   }
         
                   if (i % 2 === 1) {
                     translateY *= -1;
                   }
+        
+                  translateX = Math.abs(translateX);
+                  translateZ = Math.abs(translateZ) * -1;
         
                   if (Math.abs(translateX) < 0.001) { translateX = 0; }
                   if (Math.abs(translateY) < 0.001) { translateY = 0; }
